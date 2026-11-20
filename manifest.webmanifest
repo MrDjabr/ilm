@@ -1,0 +1,13 @@
+{
+  "name": "Сборник хадисов",
+  "short_name": "Хадисы",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0B5D3B",
+  "theme_color": "#0B5D3B",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

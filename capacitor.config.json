@@ -1,0 +1,11 @@
+{
+  "appId": "ru.ilm.hadith",
+  "appName": "Сборник хадисов",
+  "webDir": "www",
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon_config_sample",
+      "iconColor": "#0B5D3B"
+    }
+  }
+}

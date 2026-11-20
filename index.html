@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Сборник хадисов</title>
+<meta name="theme-color" content="#0B5D3B">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;600&display=swap">
+<style>
+/* Layout: узкая колонка (мобильный приоритет), шапка с орнаментом, нижняя навигация из 4 разделов */
+:root{
+  --emerald:#0B5D3B; --green:#1E8E5A; --mint:#D8F3E6; --gold:#C9A227;
+  --bg:#F3FAF6; --surface:#FFFFFF; --fg:#0F2A1E; --muted:#4A6659; --line:#CFE6DA;
+  --head-bg:#0B5D3B; --head-fg:#FFFFFF; --accent:#1E8E5A; --accent-fg:#FFFFFF; --chip:#D8F3E6; --gold-t:#8A6D0A;
+  --shadow:0 6px 24px rgba(11,93,59,.12);
+  --font:'Inter','Noto Sans',system-ui,sans-serif; --ar:'Amiri','Traditional Arabic',serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#06241A; --surface:#0C3526; --fg:#EAF7F0; --muted:#9CC3B1; --line:#1B5A41;
+  --head-bg:#0B5D3B; --accent:#3BBE80; --accent-fg:#06241A; --chip:#12503A; --gold-t:#E3C24E;
+  --shadow:0 6px 24px rgba(0,0,0,.4); color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#06241A; --surface:#0C3526; --fg:#EAF7F0; --muted:#9CC3B1; --line:#1B5A41;
+  --head-bg:#0B5D3B; --accent:#3BBE80; --accent-fg:#06241A; --chip:#12503A; --gold-t:#E3C24E;
+  --shadow:0 6px 24px rgba(0,0,0,.4); color-scheme:dark;}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 var(--font);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+.ornament{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1' opacity='.45'%3E%3Cpath d='M28 4l7 17 17 7-17 7-7 17-7-17-17-7 17-7z'/%3E%3Crect x='14' y='14' width='28' height='28' transform='rotate(45 28 28)'/%3E%3Ccircle cx='28' cy='28' r='5'/%3E%3C/g%3E%3C/svg%3E");}
+.app{max-width:720px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;padding-bottom:84px}
+header.top{margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:18px max(16px,env(safe-area-inset-left,0px)) 22px;
+  background-color:var(--head-bg);color:var(--head-fg);border-radius:0 0 28px 28px;position:relative}
+header.top h1{margin:0;font-size:1.35rem;font-weight:700;letter-spacing:.01em}
+header.top p{margin:2px 0 0;font-size:.85rem;opacity:.85}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.icon-btn{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff;border-radius:12px;width:40px;height:40px;font-size:18px;cursor:pointer}
+main{flex:1;padding-block:20px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);animation:rise .45s ease both;min-width:0}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card.hero{border-color:var(--gold)}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-t);font-weight:600;margin-bottom:8px}
+.ar{font-family:var(--ar);font-size:1.7rem;line-height:2;direction:rtl;text-align:right;margin:0 0 10px}
+.txt{font-size:1.12rem;line-height:1.7;margin:0 0 14px;overflow-wrap:anywhere}
+.meta{font-size:.85rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:12px}
+.badge{background:var(--chip);color:var(--fg);border-radius:999px;padding:2px 10px;font-size:.75rem;font-weight:600}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+button,.btn{font:inherit;cursor:pointer}
+.btn{border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:12px;padding:8px 14px;text-decoration:none;font-size:.9rem}
+.btn.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);font-weight:600}
+.btn.fav[aria-pressed="true"]{border-color:var(--gold);color:var(--gold-t);font-weight:600}
+a.src{color:var(--accent);font-size:.9rem}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+input[type=search],input[type=time],select,input[type=url]{font:inherit;width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--fg)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:6px 14px;white-space:nowrap;font-size:.88rem}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;background:var(--surface);border-top:1px solid var(--line);
+  padding:8px max(16px,env(safe-area-inset-left,0px)) calc(8px + env(safe-area-inset-bottom,0px));z-index:5}
+nav.tabs .in{display:flex;max-width:720px;width:100%;gap:4px}
+nav.tabs button{flex:1;border:0;background:none;color:var(--muted);padding:8px 4px;border-radius:12px;font-size:.78rem;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.tabs button span{font-size:1.2rem}
+nav.tabs button[aria-current="page"]{color:var(--accent);background:var(--chip);font-weight:600}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row small{display:block;color:var(--muted)}
+.days{display:flex;gap:6px;flex-wrap:wrap}
+.times{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.time-pill{display:inline-flex;align-items:center;gap:6px;background:var(--chip);border-radius:999px;padding:4px 6px 4px 12px}
+.time-pill button{border:0;background:none;color:var(--fg);font-size:1rem}
+.switch{position:relative;width:48px;height:28px;flex:none}
+.switch input{appearance:none;width:100%;height:100%;border-radius:999px;background:var(--line);cursor:pointer;margin:0;transition:background .2s}
+.switch input:checked{background:var(--accent)}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;pointer-events:none;transition:transform .2s}
+.switch:has(input:checked)::after{transform:translateX(20px)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.note{font-size:.85rem;color:var(--muted)}
+dialog{border:1px solid var(--gold);border-radius:22px;background:var(--surface);color:var(--fg);max-width:min(440px,calc(100% - 32px));padding:24px;box-shadow:var(--shadow)}
+dialog::backdrop{background:rgba(3,20,14,.6)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(92px + env(safe-area-inset-bottom,0px));background:var(--emerald);color:#fff;border-radius:14px;padding:10px 16px;z-index:9;font-size:.9rem;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top ornament">
+    <div class="bar">
+      <div><h1>Сборник хадисов</h1><p id="sub"></p></div>
+      <button class="icon-btn" id="themeBtn" aria-label="Сменить тему">◐</button>
+    </div>
+  </header>
+  <main id="view" aria-live="polite"></main>
+</div>
+<nav class="tabs" aria-label="Разделы"><div class="in" id="tabs"></div></nav>
+
+<dialog id="permDlg" aria-labelledby="permTitle">
+  <h2 id="permTitle" style="margin-top:0">Напоминания о хадисах</h2>
+  <p>Мы можем время от времени показывать вам достоверный хадис во всплывающем уведомлении. Расписание хранится на вашем устройстве. Частоту, время, тихие часы и дни недели можно изменить в настройках.</p>
+  <div class="actions" style="justify-content:flex-end">
+    <button class="btn" id="permNo">Не сейчас</button>
+    <button class="btn primary" id="permYes">Разрешить</button>
+  </div>
+</dialog>
+
+<script>
+/* ============ Конфигурация ============ */
+const CONFIG = {
+  // Адрес JSON с хадисами. Пока адрес API hadis.uk не подтверждён, поле пустое
+  // и приложение работает на встроенном наборе. Укажите адрес здесь или в Настройках.
+  API_URL: '',
+  SITE: 'https://hadis.uk',
+  REFRESH_DAYS: 7,
+  ACCEPT: ['sahih','hasan','сахих','хасан','достоверный','достоверный хадис']
+};
+
+/* ============ Локализация (добавьте другой язык ниже) ============ */
+const I18N = { ru: {
+  home:'Главная', all:'Хадисы', favs:'Избранное', settings:'Настройки',
+  today:'Хадис дня', another:'Другой хадис', copy:'Копировать', share:'Поделиться', copied:'Скопировано',
+  source:'Источник на hadis.uk', search:'Поиск по хадисам', allCats:'Все', none:'Ничего не найдено',
+  noFavs:'Здесь появятся хадисы, которые вы отметите звёздочкой.', fav:'В избранное', unfav:'В избранном',
+  notif:'Уведомления', enable:'Показывать хадисы', freq:'Частота', times:'Время показа', addTime:'Добавить время',
+  quiet:'Тихие часы', from:'С', to:'До', days:'Дни недели', perm:'Разрешение браузера',
+  permGranted:'Разрешено', permDenied:'Запрещено. Включите в настройках браузера.', permDefault:'Не запрошено',
+  askPerm:'Запросить разрешение', test:'Показать пробное уведомление', sync:'Обновить базу', syncUrl:'Адрес источника (JSON)',
+  next:'Следующее уведомление', theme:'Тема', hadiths:'хадисов в базе', narrator:'Передатчик', grade:'Степень',
+  dayNames:['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
+  freqs:{'30':'Каждые 30 минут','60':'Каждый час','120':'Каждые 2 часа','180':'Каждые 3 часа','360':'Каждые 6 часов','1440':'Раз в день','times':'В выбранное время'}
+}};
+const LANG = 'ru'; const T = I18N[LANG];
+
+/* ============ Встроенный набор (достоверные: сахих/хасан) ============ */
+const SEED = [
+ {id:'b1',text:'Поистине, дела оцениваются только по намерениям, и каждому человеку достанется лишь то, что он намеревался обрести.',ar:'إنما الأعمال بالنيات',narrator:'Умар ибн аль-Хаттаб',source:'Аль-Бухари',number:'1; Муслим 1907',grade:'сахих',category:'Вера'},
+ {id:'b13',text:'Никто из вас не уверует по-настоящему, пока не станет желать своему брату того, чего желает самому себе.',narrator:'Анас ибн Малик',source:'Аль-Бухари',number:'13; Муслим 45',grade:'сахих',category:'Нрав'},
+ {id:'m55',text:'Религия — это искренность (насиха).',ar:'الدين النصيحة',narrator:'Тамим ад-Дари',source:'Муслим',number:'55',grade:'сахих',category:'Вера'},
+ {id:'m223',text:'Чистота — половина веры.',ar:'الطهور شطر الإيمان',narrator:'Абу Малик аль-Аш‘ари',source:'Муслим',number:'223',grade:'сахих',category:'Молитва'},
+ {id:'b6018',text:'Тот, кто верует в Аллаха и в Последний день, пусть говорит благое или молчит.',narrator:'Абу Хурайра',source:'Аль-Бухари',number:'6018; Муслим 47',grade:'сахих',category:'Нрав'},
+ {id:'b6114',text:'Сильный не тот, кто побеждает других в борьбе, а тот, кто владеет собой в гневе.',narrator:'Абу Хурайра',source:'Аль-Бухари',number:'6114; Муслим 2609',grade:'сахих',category:'Нрав'},
+ {id:'b6116',text:'Один человек попросил: «Дай мне наставление». Пророк ﷺ сказал: «Не гневайся». Тот повторил просьбу несколько раз, и каждый раз Пророк ﷺ отвечал: «Не гневайся».',ar:'لا تغضب',narrator:'Абу Хурайра',source:'Аль-Бухари',number:'6116',grade:'сахих',category:'Нрав'},
+ {id:'b5027',text:'Лучший из вас тот, кто изучил Коран и обучает ему других.',narrator:'Усман ибн Аффан',source:'Аль-Бухари',number:'5027',grade:'сахих',category:'Вера'},
+ {id:'t1956',text:'Твоя улыбка в лицо твоему брату — садака.',ar:'تبسمك في وجه أخيك صدقة',narrator:'Абу Зарр',source:'Ат-Тирмизи',number:'1956',grade:'хасан',category:'Нрав'},
+ {id:'t3895',text:'Лучшие из вас те, кто лучше относится к своим семьям, а я лучше всех вас отношусь к своей семье.',narrator:'Аиша',source:'Ат-Тирмизи',number:'3895',grade:'сахих',category:'Семья'},
+ {id:'a4941',text:'Милосердным Милостивый (Аллах) окажет милость. Будьте милосердны к тем, кто на земле, и Тот, Кто на небесах, будет милосерден к вам.',narrator:'Абдуллах ибн Амр',source:'Абу Дауд',number:'4941; Ат-Тирмизи 1924',grade:'сахих',category:'Семья'},
+ {id:'m2564',text:'Поистине, Аллах не смотрит на ваши лица и ваше имущество, но смотрит на ваши сердца и ваши деяния.',narrator:'Абу Хурайра',source:'Муслим',number:'2564',grade:'сахих',category:'Вера'}
+];
+
+/* ============ Хранилище ============ */
+const store = {
+  get(k,d){try{const v=localStorage.getItem('hc:'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('hc:'+k,JSON.stringify(v))}catch(e){}}
+};
+const DEF = {on:true,freq:'180',times:['08:00','20:00'],quietOn:true,qFrom:'22:00',qTo:'07:00',days:[0,1,2,3,4,5,6],theme:'auto',apiUrl:CONFIG.API_URL,asked:false};
+let S = Object.assign({}, DEF, store.get('settings',{}));
+let DB = store.get('db', null) || SEED;
+let FAV = new Set(store.get('favs',[]));
+const save = ()=>store.set('settings',S);
+
+const accepted = h => CONFIG.ACCEPT.includes(String(h.grade||'').toLowerCase());
+const pool = () => DB.filter(accepted);
+const byId = id => DB.find(h=>h.id===id);
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const srcUrl = h => h.url || CONFIG.SITE;
+
+/* ============ Случайный хадис без повторов, пока не показаны все ============ */
+function nextRandomId(){
+  const ids = pool().map(h=>h.id);
+  let bag = store.get('bag',[]).filter(id=>ids.includes(id));
+  if(!bag.length){
+    bag = ids.slice();
+    for(let i=bag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[bag[i],bag[j]]=[bag[j],bag[i]]}
+    const last = store.get('last',null);
+    if(bag.length>1 && bag[bag.length-1]===last) bag.unshift(bag.pop()); // не повторять подряд на стыке кругов
+  }
+  const id = bag.pop();
+  store.set('bag',bag); store.set('last',id);
+  return id;
+}
+function hadithOfDay(){
+  const key = new Date().toISOString().slice(0,10);
+  const d = store.get('hod',null);
+  if(d && d.key===key && byId(d.id)) return byId(d.id);
+  const id = nextRandomId(); store.set('hod',{key,id}); return byId(id);
+}
+
+/* ============ Расписание (чистая логика, можно перенести в нативный слой) ============ */
+const toMin = t => {const [h,m]=t.split(':').map(Number);return h*60+m};
+function inQuiet(min){
+  if(!S.quietOn) return false;
+  const a=toMin(S.qFrom), b=toMin(S.qTo);
+  if(a===b) return false;
+  return a<b ? (min>=a && min<b) : (min>=a || min<b);
+}
+function slotsOfDay(){
+  if(S.freq==='times') return S.times.map(toMin).sort((a,b)=>a-b);
+  const step = +S.freq, out=[];
+  if(step>=1440) return [toMin(S.times[0]||'09:00')];
+  for(let m=0;m<1440;m+=step) out.push(m);
+  return out;
+}
+function nextFire(from=new Date()){
+  if(!S.on || !S.days.length) return null;
+  const slots = slotsOfDay();
+  for(let d=0; d<8; d++){
+    const day = new Date(from.getFullYear(),from.getMonth(),from.getDate()+d);
+    const wd = (day.getDay()+6)%7; // Пн=0
+    if(!S.days.includes(wd)) continue;
+    for(const m of slots){
+      const t = new Date(day.getTime()+m*60000);
+      if(t>from && !inQuiet(m)) return t;
+    }
+  }
+  return null;
+}
+
+/* ============ Уведомления ============ */
+let timer=null;
+async function showNotif(h,isTest){
+  const title = h.source ? `Хадис · ${h.source}` : 'Хадис';
+  const body = h.text.length>180 ? h.text.slice(0,177)+'…' : h.text;
+  const opts = {body,icon:'icon.svg',badge:'icon.svg',tag:'hadith',data:{id:h.id},lang:'ru'};
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){
+    try{
+      const reg = await navigator.serviceWorker?.getRegistration();
+      if(reg){await reg.showNotification(title,opts);return}
+      const n=new Notification(title,opts); n.onclick=()=>{focus();open_(h.id)};return;
+    }catch(e){}
+  }
+  toast(isTest?'Уведомления не разрешены, показываю здесь':'Хадис: '+body.slice(0,60)+'…');
+}
+function schedule(){
+  clearTimeout(timer);
+  if(window.nativeSchedule){ window.nativeSchedule(); renderNext(); return; }
+  const t = nextFire(); renderNext();
+  if(!t) return;
+  const wait = Math.min(t-Date.now(), 6*3600*1000);
+  timer = setTimeout(()=>{
+    if(Date.now()>=t-1000){const id=nextRandomId();const h=byId(id);if(h)showNotif(h)}
+    schedule();
+  }, Math.max(wait,1000));
+}
+const focus=()=>window.focus();
+function permState(){
+  if(window.nativePerm) return window.nativePerm();
+  return typeof Notification==='undefined'?'unsupported':Notification.permission}
+async function askPerm(){
+  if(window.nativeAsk){await window.nativeAsk();S.asked=true;save();render();return}
+  if(typeof Notification==='undefined'){toast('Браузер не поддерживает уведомления');return}
+  try{await Notification.requestPermission()}catch(e){}
+  S.asked=true;save();render();
+}
+
+/* ============ Синхронизация с источником ============ */
+async function sync(manual){
+  const url = (S.apiUrl||'').trim();
+  if(!url){ if(manual) toast('Адрес источника не указан. Используется встроенный набор.'); return}
+  try{
+    const r = await fetch(url,{cache:'no-store'});
+    if(!r.ok) throw new Error(r.status);
+    const raw = await r.json();
+    const list = (Array.isArray(raw)?raw:raw.items||raw.data||[]).map((x,i)=>({
+      id:String(x.id??i), text:x.text||x.matn||'', ar:x.ar||x.arabic||'', narrator:x.narrator||x.transmitter||'',
+      source:x.source||x.book||'', number:x.number??x.num??'', grade:x.grade||x.status||'', category:x.category||x.topic||'Прочее', url:x.url||x.link||''
+    })).filter(h=>h.text && accepted(h));
+    if(!list.length) throw new Error('empty');
+    DB=list; store.set('db',DB); store.set('synced',Date.now()); toast('База обновлена: '+list.length);
+    render();
+  }catch(e){ if(manual) toast('Не удалось обновить. Работаю с сохранённой базой.') }
+}
+
+/* ============ Интерфейс ============ */
+let tab='home', q='', cat='', openId=null;
+const $ = s=>document.querySelector(s);
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
+
+function cardHTML(h,{hero=false,full=true}={}){
+  const fav = FAV.has(h.id);
+  return `<article class="card${hero?' hero':''}" data-id="${esc(h.id)}">
+    ${hero?`<div class="eyebrow">${T.today}</div>`:''}
+    ${h.ar?`<p class="ar" lang="ar">${esc(h.ar)}</p>`:''}
+    <p class="txt">${esc(h.text)}</p>
+    <div class="meta">
+      ${h.narrator?`<span>${T.narrator}: ${esc(h.narrator)}</span>`:''}
+      <span>${esc(h.source)}${h.number?', №'+esc(h.number):''}</span>
+      <span class="badge">${esc(h.grade)}</span>
+      ${h.category?`<span class="badge" style="background:transparent;border:1px solid var(--line)">${esc(h.category)}</span>`:''}
+    </div>
+    <div class="actions">
+      <button class="btn fav" data-a="fav" aria-pressed="${fav}">${fav?'★ '+T.unfav:'☆ '+T.fav}</button>
+      <button class="btn" data-a="copy">${T.copy}</button>
+      <button class="btn" data-a="share">${T.share}</button>
+      ${hero?`<button class="btn" data-a="another">${T.another}</button>`:''}
+    </div>
+    <p style="margin:12px 0 0"><a class="src" href="${esc(srcUrl(h))}" target="_blank" rel="noopener">${T.source} ↗</a></p>
+  </article>`;
+}
+const plain = h => `${h.text}\n\n— ${h.narrator?h.narrator+', ':''}${h.source}${h.number?' №'+h.number:''} (${h.grade})\n${srcUrl(h)}`;
+
+function render(){
+  $('#sub').textContent = `${pool().length} ${T.hadiths}`;
+  $('#tabs').innerHTML = [['home','◉',T.home],['all','☰',T.all],['favs','★',T.favs],['set','⚙',T.settings]]
+    .map(([k,i,l])=>`<button data-tab="${k}" ${tab===k?'aria-current="page"':''}><span aria-hidden="true">${i}</span>${l}</button>`).join('');
+  const v=$('#view');
+  if(openId){const h=byId(openId); v.innerHTML=(h?cardHTML(h,{hero:true}):'')+`<button class="btn" data-a="back">← ${T.home}</button>`; return}
+  if(tab==='home'){const h=hadithOfDay(); v.innerHTML=h?cardHTML(h,{hero:true}):`<p class="note">${T.none}</p>`}
+  if(tab==='all'){
+    const cats=[...new Set(pool().map(h=>h.category).filter(Boolean))];
+    const list=pool().filter(h=>(!cat||h.category===cat)&&(!q||(h.text+' '+h.narrator+' '+h.source).toLowerCase().includes(q.toLowerCase())));
+    v.innerHTML=`<input type="search" id="q" placeholder="${T.search}" value="${esc(q)}" aria-label="${T.search}">
+      <div class="chips"><button class="chip" data-cat="" aria-pressed="${!cat}">${T.allCats}</button>${cats.map(c=>`<button class="chip" data-cat="${esc(c)}" aria-pressed="${cat===c}">${esc(c)}</button>`).join('')}</div>
+      <div id="list" style="display:flex;flex-direction:column;gap:16px">${list.map(h=>cardHTML(h)).join('')||`<p class="note">${T.none}</p>`}</div>`;
+  }
+  if(tab==='favs'){const list=pool().filter(h=>FAV.has(h.id)); v.innerHTML=list.map(h=>cardHTML(h)).join('')||`<p class="note">${T.noFavs}</p>`}
+  if(tab==='set') v.innerHTML=settingsHTML();
+}
+function settingsHTML(){
+  const p=permState();
+  const ps = p==='granted'?T.permGranted:p==='denied'?T.permDenied:p==='unsupported'?'Не поддерживается этим браузером':T.permDefault;
+  const days=T.dayNames.map((n,i)=>`<button class="chip" data-day="${i}" aria-pressed="${S.days.includes(i)}">${n}</button>`).join('');
+  return `<section class="card">
+    <div class="row"><div><strong>${T.enable}</strong></div><label class="switch"><input type="checkbox" id="on" ${S.on?'checked':''} aria-label="${T.enable}"></label></div>
+    <div class="row"><div><strong>${T.perm}</strong><small>${ps}</small></div>${p!=='granted'&&p!=='unsupported'?`<button class="btn primary" data-a="perm">${T.askPerm}</button>`:''}</div>
+    <div style="padding:12px 0"><label for="freq"><strong>${T.freq}</strong></label>
+      <select id="freq">${Object.entries(T.freqs).map(([k,v])=>`<option value="${k}" ${S.freq===k?'selected':''}>${v}</option>`).join('')}</select></div>
+    <div style="padding:4px 0 12px"><strong>${S.freq==='1440'?'Время':T.times}</strong>
+      <div class="times">${S.times.map((t,i)=>`<span class="time-pill">${t}<button data-deltime="${i}" aria-label="Удалить ${t}">×</button></span>`).join('')}</div>
+      <div class="grid2"><input type="time" id="newTime" aria-label="${T.addTime}"><button class="btn" data-a="addtime">${T.addTime}</button></div>
+      <p class="note">«Раз в день» использует первое время из списка.</p></div>
+    <div class="row"><div><strong>${T.quiet}</strong></div><label class="switch"><input type="checkbox" id="quietOn" ${S.quietOn?'checked':''} aria-label="${T.quiet}"></label></div>
+    <div class="grid2" style="padding:12px 0"><div><label for="qFrom">${T.from}</label><input type="time" id="qFrom" value="${S.qFrom}"></div><div><label for="qTo">${T.to}</label><input type="time" id="qTo" value="${S.qTo}"></div></div>
+    <div style="padding:4px 0 12px"><strong>${T.days}</strong><div class="days" style="margin-top:8px">${days}</div></div>
+    <p class="note" id="next"></p>
+    <div class="actions"><button class="btn" data-a="test">${T.test}</button></div>
+  </section>
+  <section class="card">
+    <label for="api"><strong>${T.syncUrl}</strong></label>
+    <input type="url" id="api" placeholder="https://…" value="${esc(S.apiUrl)}">
+    <p class="note">Загружаются только хадисы со степенью сахих или хасан. База хранится на устройстве и обновляется раз в ${CONFIG.REFRESH_DAYS} дн.</p>
+    <div class="actions"><button class="btn primary" data-a="sync">${T.sync}</button></div>
+    <div class="row" style="margin-top:12px"><strong>${T.theme}</strong>
+      <select id="theme" style="width:auto"><option value="auto">Системная</option><option value="light">Светлая</option><option value="dark">Тёмная</option></select></div>
+  </section>`;
+}
+function renderNext(){
+  const el=$('#next'); if(!el) return;
+  const t=nextFire();
+  el.textContent = t ? `${T.next}: ${t.toLocaleString('ru-RU',{weekday:'short',hour:'2-digit',minute:'2-digit'})}` : 'Уведомления выключены или нет подходящего времени.';
+}
+function applyTheme(){
+  const r=document.documentElement;
+  if(S.theme==='auto') r.removeAttribute('data-theme'); else r.setAttribute('data-theme',S.theme);
+}
+function open_(id){openId=id;tab='home';render()}
+
+/* ============ События ============ */
+document.addEventListener('click',async e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  if(b.dataset.tab){tab=b.dataset.tab;openId=null;render();return}
+  if(b.dataset.cat!==undefined){cat=b.dataset.cat;render();return}
+  if(b.dataset.day){const d=+b.dataset.day;S.days=S.days.includes(d)?S.days.filter(x=>x!==d):[...S.days,d].sort();save();render();schedule();return}
+  if(b.dataset.deltime){S.times.splice(+b.dataset.deltime,1);save();render();schedule();return}
+  const a=b.dataset.a, art=b.closest('article'), h=art&&byId(art.dataset.id);
+  if(a==='fav'&&h){FAV.has(h.id)?FAV.delete(h.id):FAV.add(h.id);store.set('favs',[...FAV]);render()}
+  if(a==='copy'&&h){try{await navigator.clipboard.writeText(plain(h));toast(T.copied)}catch(_){toast('Не удалось скопировать')}}
+  if(a==='share'&&h){if(navigator.share){try{await navigator.share({text:plain(h)})}catch(_){}}else{try{await navigator.clipboard.writeText(plain(h));toast(T.copied)}catch(_){}}}
+  if(a==='another'){const id=nextRandomId();store.set('hod',{key:new Date().toISOString().slice(0,10),id});render()}
+  if(a==='back'){openId=null;history.replaceState(null,'',location.pathname);render()}
+  if(a==='perm') askPerm();
+  if(a==='test'){const h=byId(nextRandomId());if(h)showNotif(h,true)}
+  if(a==='sync'){S.apiUrl=$('#api').value;save();sync(true)}
+  if(a==='addtime'){const v=$('#newTime').value;if(v&&!S.times.includes(v)){S.times.push(v);S.times.sort();save();render();schedule()}}
+});
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.id==='q'){q=t.value;const pos=t.selectionStart;render();const n=$('#q');n.focus();n.setSelectionRange(pos,pos)}
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.id==='on'){S.on=t.checked;save();schedule()}
+  if(t.id==='freq'){S.freq=t.value;save();render();schedule()}
+  if(t.id==='quietOn'){S.quietOn=t.checked;save();schedule()}
+  if(t.id==='qFrom'||t.id==='qTo'){S[t.id]=t.value;save();schedule()}
+  if(t.id==='theme'){S.theme=t.value;save();applyTheme()}
+});
+$('#themeBtn').onclick=()=>{const dark=document.documentElement.dataset.theme==='dark'||(S.theme==='auto'&&matchMedia('(prefers-color-scheme:dark)').matches);S.theme=dark?'light':'dark';save();applyTheme()};
+$('#permYes').onclick=async()=>{$('#permDlg').close();await askPerm()};
+$('#permNo').onclick=()=>{$('#permDlg').close();S.asked=true;save()};
+
+/* ============ Запуск ============ */
+applyTheme();
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});
+const deep=new URLSearchParams(location.search).get('h'); if(deep&&byId(deep)) openId=deep;
+render(); schedule();
+if(!S.asked && permState()==='default') setTimeout(()=>{try{$('#permDlg').showModal()}catch(e){}},700);
+const synced=store.get('synced',0);
+if(Date.now()-synced > CONFIG.REFRESH_DAYS*864e5) sync(false);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)schedule()});
+</script>
+<script src="native.js"></script>
+</body>
+</html>
